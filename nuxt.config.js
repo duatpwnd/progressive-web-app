@@ -59,7 +59,9 @@ export default {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    baseURL: 'https://73715e0112a9.ngrok.io/',
+  },
   /*
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/
@@ -70,7 +72,11 @@ export default {
     dir: './public',
   },
   serverMiddleware: [{ path: '/api', handler: '~/api/index.js' }],
-
+  server: {
+    port: 8000, // 기본값: 3000
+    host: 'localhost', // 기본값: localhost,
+    timing: false,
+  },
   manifest: {
     name: '',
     short_name: 'Movie',
