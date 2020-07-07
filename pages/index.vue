@@ -16,8 +16,10 @@
 
 <script>
 export default {
-  name: 'swiper-example-3d-coverflow',
-  title: '3D Coverflow effect',
+  async asyncData({ app, query }) {
+    console.log('database 연결2222')
+    const dbconnection = await app.$axios.$get(`/api/db_connect`)
+  },
   data() {
     return {
       swiperOption: {
@@ -47,37 +49,71 @@ export default {
       },
     }
   },
+  mounted() {
+    const filter = 'win16|win32|win64|mac|macintel'
+    const data = {}
+    if (this.isMobile()) {
+      data.mobile_token = this.$messageToken
+    } else {
+      data.pc_token = this.$messageToken
+    }
+    console.log(data)
+    this.$axios.post('/api', data).then((result) => {
+      console.log(result)
+    })
+  },
   methods: {
+    isMobile() {
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      )
+    },
     push_meessage_send() {
-      const token = this.$messageToken
-      console.log(token)
+      let device
+      if (this.isMobile()) {
+        device = 'mobile'
+      } else {
+        device = 'pc'
+      }
       this.$axios
-        .post(
-          'https://fcm.googleapis.com/fcm/send',
-          {
-            to: token,
-            notification: {
-              title: '알림테스트 타이틀1111',
-              body: '알림테스트 내용11111',
-              sound: 'default',
-              image: 'https://7cc12d930d4e.ngrok.io/image-analysis.png',
-              icon: 'https://7cc12d930d4e.ngrok.io/icon_512.5f6a36.png',
-            },
-          },
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization:
-                'key=AAAAFEEaDEc:APA91bGQ0QPvjRNrcJuAuKf4GH7teFuRUm9lcB1QU9TAdxLocjZiJT7WZ_lgf0O0oHS3RHzAk1AXy-xVDMUpBvUlJy_cTn4ba8ni3pnJRC0dE-3yHcJ35fyXWyi-kmVAs-owKwrR0pUN',
-            },
-          }
-        )
+        .get(`/api/getToken/?device=${device}`)
         .then((result) => {
           console.log(result)
+          if (device === 'pc') {
+            console.log('pc임')
+            return result.data.mobile_token
+          } else {
+            return result.data.pc_token
+          }
+        })
+        .then((result) => {
+          this.$axios
+            .post(
+              'https://fcm.googleapis.com/fcm/send',
+              {
+                to: result,
+                notification: {
+                  title: '알림테스트 타이틀1111',
+                  body: '알림테스트 내용11111',
+                  sound: 'default',
+                  image: 'https://7cc12d930d4e.ngrok.io/image-analysis.png',
+                  icon: 'https://7cc12d930d4e.ngrok.io/icon_512.5f6a36.png',
+                },
+              },
+              {
+                headers: {
+                  'Content-Type': 'application/json',
+                  Authorization:
+                    'key=AAAAFEEaDEc:APA91bGQ0QPvjRNrcJuAuKf4GH7teFuRUm9lcB1QU9TAdxLocjZiJT7WZ_lgf0O0oHS3RHzAk1AXy-xVDMUpBvUlJy_cTn4ba8ni3pnJRC0dE-3yHcJ35fyXWyi-kmVAs-owKwrR0pUN',
+                },
+              }
+            )
+            .then((result) => {
+              console.log(result)
+            })
         })
     },
   },
-  mounted() {},
 }
 </script>
 
