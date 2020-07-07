@@ -17,7 +17,7 @@
 <script>
 export default {
   async asyncData({ app, query }) {
-    console.log('db연결')
+    console.log('database 연결')
     const dbconnection = await app.$axios.$get(`/api/db_connect`)
   },
   data() {
