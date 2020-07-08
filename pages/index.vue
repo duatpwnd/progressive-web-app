@@ -136,11 +136,9 @@ export default {
   padding-top: 50px;
   padding-bottom: 50px;
 }
-
 .swiper {
   height: 100%;
   width: 100%;
-
   .swiper-slide {
     display: flex;
     justify-content: center;
@@ -155,7 +153,6 @@ export default {
     background-size: cover;
     // color: $white;
   }
-
   .swiper-pagination {
     /deep/ .swiper-pagination-bullet.swiper-pagination-bullet-active {
       // background-color: $white;
@@ -171,7 +168,6 @@ export default {
   color: #35495e;
   letter-spacing: 1px;
 }
-
 .subtitle {
   font-weight: 300;
   font-size: 42px;
@@ -179,7 +175,6 @@ export default {
   word-spacing: 5px;
   padding-bottom: 15px;
 }
-
 .links {
   padding-top: 15px;
 }

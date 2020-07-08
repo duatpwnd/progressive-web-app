@@ -60,7 +60,7 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: 'https://73715e0112a9.ngrok.io/',
+    baseURL: 'https://50bd13e9664a.ngrok.io/',
   },
   /*
    ** Build configuration

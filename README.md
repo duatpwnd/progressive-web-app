@@ -1,4 +1,4 @@
-# nuxt-pwa
+# progressive-web-app
 
 ## Build Setup
 
@@ -17,5 +17,4 @@ $ npm run start
 $ npm run generate
 ```
 
-sss
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
