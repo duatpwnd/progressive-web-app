@@ -17,6 +17,7 @@ module.exports = {
   plugins: ['prettier'],
   // add your custom rules here
   rules: {
+    camelcase: 'off',
     'no-unused-vars': 'off',
     'no-undef': 'off',
     'no-console': 'off',

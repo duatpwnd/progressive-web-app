@@ -14,8 +14,10 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue'
+
+export default Vue.extend({
   async asyncData({ app, query }) {
     console.log('database 연결1111')
     const dbconnection = await app.$axios.$get(`/api/db_connect`)
@@ -51,11 +53,21 @@ export default {
   },
   mounted() {
     const filter = 'win16|win32|win64|mac|macintel'
-    const data = {}
+
+    class ComicBookCharacter {
+      mobile_token: string
+      pc_token: string
+      constructor(mobile_token: any, pc_token: any) {
+        this.mobile_token = mobile_token
+        this.pc_token = pc_token
+      }
+    }
+    let data
     if (this.isMobile()) {
-      data.mobile_token = this.$messageToken
+      data = new ComicBookCharacter('a', null)
+      // data.mobile_token = this.$messageToken
     } else {
-      data.pc_token = this.$messageToken
+      data = new ComicBookCharacter(null, 'b')
     }
     console.log(data)
     this.$axios.post('/api', data).then((result) => {
@@ -69,7 +81,7 @@ export default {
       )
     },
     push_meessage_send() {
-      let device
+      let device: any
       if (this.isMobile()) {
         device = 'mobile'
       } else {
@@ -114,7 +126,7 @@ export default {
         })
     },
   },
-}
+})
 </script>
 
 <style lang="scss">
@@ -152,11 +164,6 @@ export default {
     background-position: center;
     background-size: cover;
     // color: $white;
-  }
-  .swiper-pagination {
-    /deep/ .swiper-pagination-bullet.swiper-pagination-bullet-active {
-      // background-color: $white;
-    }
   }
 }
 .title {

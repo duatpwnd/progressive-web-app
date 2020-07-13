@@ -46,6 +46,7 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
+    '@nuxt/typescript-build',
   ],
   /*
    ** Nuxt.js modules
@@ -60,7 +61,7 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: 'https://50bd13e9664a.ngrok.io/',
+    // baseURL: 'http:localhost:8000',
   },
   /*
    ** Build configuration
