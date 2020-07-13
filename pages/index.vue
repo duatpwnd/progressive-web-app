@@ -19,7 +19,7 @@ import Vue from 'vue'
 
 export default Vue.extend({
   async asyncData({ app, query }) {
-    console.log('database 연결1111')
+    console.log('database 연결3333')
     const dbconnection = await app.$axios.$get(`/api/db_connect`)
   },
   data() {
