@@ -9,6 +9,7 @@
     "export": "nuxt-ts export",
     "generate": "nuxt generate",
     "serve": "nuxt serve",
+    "test": "jest",
     "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint": "npm run lint:js"
   },
@@ -34,11 +35,18 @@
     "@nuxtjs/eslint-config": "^3.0.0",
     "@nuxtjs/eslint-config-typescript": "^2.0.0",
     "@nuxtjs/eslint-module": "^2.0.0",
+    "@vue/test-utils": "^1.0.3",
+    "@vue/cli-plugin-babel": "~4.4.0",
+    "@vue/cli-plugin-eslint": "~4.4.0",
+    "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.1.0",
     "eslint": "^7.2.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-nuxt": "^1.0.0",
     "eslint-plugin-prettier": "^3.1.4",
+    "jest": "^26.1.0",
+    "vue-jest": "^3.0.4",
     "nuxt-property-decorator": "^2.7.2",
     "prettier": "^2.0.5"
   }

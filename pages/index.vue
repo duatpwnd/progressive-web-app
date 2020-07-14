@@ -16,11 +16,17 @@
 
 <script lang="ts">
 import Vue from 'vue'
-
+import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
+import axios from 'axios'
+Vue.prototype.$axios = axios
 export default Vue.extend({
   async asyncData({ app, query }) {
-    console.log('database 연결3333')
     const dbconnection = await app.$axios.$get(`/api/db_connect`)
+    console.log(dbconnection)
+  },
+  components: {
+    Swiper,
+    SwiperSlide,
   },
   data() {
     return {
@@ -52,7 +58,7 @@ export default Vue.extend({
     }
   },
   mounted() {
-    const filter = 'win16|win32|win64|mac|macintel'
+    const filter: string = 'win16|win32|win64|mac|macintel'
 
     class ComicBookCharacter {
       mobile_token: string
@@ -75,7 +81,7 @@ export default Vue.extend({
     })
   },
   methods: {
-    isMobile() {
+    isMobile(): boolean {
       return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
         navigator.userAgent
       )
