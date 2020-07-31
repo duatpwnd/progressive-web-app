@@ -1,4 +1,10 @@
 export default {
+  vue: {
+    config: {
+      productionTip: false,
+      devtools: true,
+    },
+  },
   /*
    ** Nuxt rendering mode
    ** See https://nuxtjs.org/api/configuration-mode

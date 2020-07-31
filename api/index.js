@@ -32,7 +32,13 @@ app.get('/getToken', (req, res) => {
     })
   }
 })
+app.get('/jest', (req, res) => {
+  res.send({
+    id: 'ss',
+  })
+})
 app.post('/', (req, res, next) => {
+  console.log('api호출')
   //console.log('토큰들어옴', req.body.pc_token, req.body.mobile_token)
   if (req.body.pc_token != undefined) {
     client.query('SELECT * FROM test', (err, result) => {

@@ -24,6 +24,7 @@ export default Vue.extend({
     const dbconnection = await app.$axios.$get(`/api/db_connect`)
     console.log(dbconnection)
   },
+
   components: {
     Swiper,
     SwiperSlide,
@@ -75,12 +76,16 @@ export default Vue.extend({
     } else {
       data = new ComicBookCharacter(null, 'b')
     }
-    console.log(data)
     this.$axios.post('/api', data).then((result) => {
       console.log(result)
     })
   },
   methods: {
+    jest_test() {
+      return this.$axios.get(`/axios/jest`).then((result) => {
+        return result.data
+      })
+    },
     isMobile(): boolean {
       return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
         navigator.userAgent
