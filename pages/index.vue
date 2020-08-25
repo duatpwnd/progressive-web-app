@@ -7,7 +7,7 @@
           v-for="(colors, index) in swiperOption.backgroundColor"
           :key="index"
           :style="{ background: colors }"
-          >{{ colors }}</swiper-slide
+          >색상{{ colors }}</swiper-slide
         >
       </swiper>
     </div>
@@ -31,6 +31,7 @@ export default Vue.extend({
   },
   data() {
     return {
+      message: '안녕하세요',
       swiperOption: {
         backgroundColor: [
           'red',
@@ -77,7 +78,7 @@ export default Vue.extend({
       data = new ComicBookCharacter(null, 'b')
     }
     this.$axios.post('/api', data).then((result) => {
-      console.log(result)
+      console.log('결과:', result)
     })
   },
   methods: {
