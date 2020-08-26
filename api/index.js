@@ -39,6 +39,7 @@ app.get('/jest', (req, res) => {
 })
 app.post('/', (req, res, next) => {
   console.log('api호출')
+  res.send('f')
   //console.log('토큰들어옴', req.body.pc_token, req.body.mobile_token)
   if (req.body.pc_token != undefined) {
     client.query('SELECT * FROM test', (err, result) => {

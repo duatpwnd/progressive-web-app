@@ -1,5 +1,8 @@
 import { shallowMount, mount } from '@vue/test-utils'
+import MockAdapter from 'axios-mock-adapter'
 import index from '@/pages/index.vue'
+import titleVue from '@/pages/title.vue'
+import axios from 'axios'
 describe.skip('Jest Hooks', () => {
   beforeAll(() => {
     console.log('beforeAll')
@@ -13,7 +16,6 @@ describe.skip('Jest Hooks', () => {
   afterEach(() => {
     console.log('afterEach')
   })
-
   test('1', () => {
     expect(1 + 1).toBe(2)
     console.log('test 1 is done!')
@@ -107,4 +109,76 @@ test.skip('Called', () => {
   expect(user.getName).toHaveBeenCalled() // Passes
   expect(user.getName).toHaveReturned() // Fails
   expect(user.getName).toHaveReturnedWith('duatpwnd')
+})
+const obj = {
+  name: 'Neo',
+  age: 85,
+  address: {
+    address1: '서울특별시 종로구 종로 6',
+    sido: '서울특별시',
+    zonecode: '03187',
+  },
+  belongings: ['phone', 'laptop', { mouse: 'MX Vertical' }, [100, 1000]],
+  girlFriend: undefined,
+  getName() {
+    return this.name
+  },
+}
+test.skip('to_have_property', () => {
+  expect(obj).toHaveProperty('name') // 속성 확인
+  expect(obj).toHaveProperty('name', 'Neo') // 속성 , 값 확인
+  expect(obj).toHaveProperty('address.address1', '서울특별시 종로구 종로 6')
+  expect(obj).toHaveProperty(['belongings', 0])
+  expect(obj).toHaveProperty(['belongings', 0], 'phone')
+  expect(obj).toHaveProperty(['belongings', 2, 'mouse'], 'MX Vertical')
+  expect(obj).toHaveProperty(['belongings', 3, 0], 100)
+  expect(obj).toHaveProperty('girlFriend')
+  expect(obj).toHaveProperty('getName')
+})
+test.skip('find element', () => {
+  const wrapper = shallowMount(index)
+  const html = wrapper.find('div')
+  const result = html.html()
+  expect(result).toBe(`<div class="container"><button>PUSH</button>
+  <div class="example-3d">
+    <swiper-stub defaultoptions="[object Object]" options="[object Object]" autoupdate="true" autodestroy="true" deleteinstanceondestroy="true" cleanupstylesondestroy="true" class="swiper">
+      <swiper-slide-stub style="background: red;">색상red</swiper-slide-stub>
+      <swiper-slide-stub style="background: blue;">색상blue</swiper-slide-stub>
+      <swiper-slide-stub style="background: yellow;">색상yellow</swiper-slide-stub>
+      <swiper-slide-stub style="background: black;">색상black</swiper-slide-stub>
+      <swiper-slide-stub style="background: gray;">색상gray</swiper-slide-stub>
+      <swiper-slide-stub style="background: green;">색상green</swiper-slide-stub>
+      <swiper-slide-stub style="background: purple;">색상purple</swiper-slide-stub>
+    </swiper-stub>
+  </div>
+</div>`)
+})
+// 모의 함수 만들기
+describe('created jest', () => {
+  let wrapper
+  beforeEach(async () => {
+    const response0 = {
+      data: {
+        title: 'created hook',
+      },
+    }
+    const response1 = {
+      data: {
+        title: 'mounted hook',
+      },
+    }
+    const mock = new MockAdapter(axios)
+    await mock.onGet('/api/jest1').reply(200, JSON.stringify(response0))
+    await mock.onGet('/api/jest2').reply(200, JSON.stringify(response1))
+    wrapper = shallowMount(titleVue)
+  })
+
+  test('가져온 텍스트가 정상적으로 렌더링', () => {
+    console.log(wrapper.html())
+  })
+  test('인덱스 뷰에 isMobile 함수 테스트', () => {
+    const wrapper = shallowMount(index)
+    const result = wrapper.vm.isMobile()
+    expect(result).toBe(false)
+  })
 })

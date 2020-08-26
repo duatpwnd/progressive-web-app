@@ -1,5 +1,7 @@
 <template>
   <div class="container">
+    {{ message }}
+    <Title></Title>
     <button @click="push_meessage_send()">PUSH</button>
     <div class="example-3d">
       <swiper class="swiper" :options="swiperOption">
@@ -18,6 +20,7 @@
 import Vue from 'vue'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import axios from 'axios'
+import Title from './title.vue'
 Vue.prototype.$axios = axios
 export default Vue.extend({
   async asyncData({ app, query }) {
@@ -26,6 +29,7 @@ export default Vue.extend({
   },
 
   components: {
+    Title,
     Swiper,
     SwiperSlide,
   },
@@ -77,9 +81,6 @@ export default Vue.extend({
     } else {
       data = new ComicBookCharacter(null, 'b')
     }
-    this.$axios.post('/api', data).then((result) => {
-      console.log('결과:', result)
-    })
   },
   methods: {
     jest_test() {
